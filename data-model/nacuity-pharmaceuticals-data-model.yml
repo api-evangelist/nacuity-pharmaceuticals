@@ -1,0 +1,122 @@
+generated: '2026-08-04'
+method: derived
+source: >-
+  openapi/nacuity-pharmaceuticals-content-openapi.yml — $ref links and id-reference fields — verified
+  against live anonymous responses from https://www.nacuity.com/wp-json/ on 2026-08-04.
+api: nacuity-pharmaceuticals-content-api
+summary: >-
+  Entity-relationship graph of the Nacuity Pharmaceuticals content API. This is the WordPress core
+  content model as it is actually populated on www.nacuity.com — which differs sharply from a
+  default WordPress site, because Nacuity publishes everything as hierarchical PAGES and leaves the
+  posts, tags and portfolio collections empty.
+identifiers:
+  scheme: integer
+  detail: >-
+    Every object is keyed by a plain auto-increment integer with no type prefix, so an id is only
+    meaningful together with its collection. Ids are also not contiguous — the 29 published pages
+    span 23 to 630. A slug is the stable human key and is unique per post type.
+entities:
+- name: Page
+  collection: /wp/v2/pages
+  count_observed: 29
+  primary_key: id
+  natural_key: slug
+  description: >-
+    The single populated content entity. Carries both the corporate pages (Home, About Us, Our
+    Science, Pipeline, Development Programs, Investors & Collaborators, News, Medical Information,
+    Publications, Expanded Access Policy, References, Contact, Privacy Policy, Disclaimer) and all
+    17 press releases. content.rendered and excerpt.rendered are empty on every one.
+  relationships:
+  - type: belongs_to
+    target: Page
+    via: parent
+    detail: >-
+      Self-referential hierarchy. Observed distribution — 13 pages are top-level (parent 0), 14 hang
+      off page 99 (News), and 2 off page 560 (Medical Information). The News children are the press
+      releases; this parent link is what makes the press archive enumerable at all.
+  - type: has_one
+    target: MediaItem
+    via: featured_media
+    detail: Declared by the schema but unset — featured_media is 0 on every page sampled.
+  - type: belongs_to
+    target: User
+    via: author
+    detail: >-
+      DANGLING. /wp/v2/users returns 401 rest_user_cannot_view on this deployment, so the author id
+      cannot be resolved. Treat it as an opaque integer.
+- name: Post
+  collection: /wp/v2/posts
+  count_observed: 0
+  description: >-
+    Registered and reachable but empty. Nacuity authors its news as pages under /news/, not as
+    posts, so the entire post/category/tag half of the WordPress model is inert here.
+  relationships:
+  - type: has_many
+    target: Term
+    via: categories
+  - type: has_many
+    target: Term
+    via: tags
+- name: MediaItem
+  collection: /wp/v2/media
+  count_observed: 140
+  primary_key: id
+  description: >-
+    The media library — logos, leadership headshots, scientific figures and page imagery. The only
+    collection on this deployment that returns substantive content over the API. Each item exposes
+    source_url plus a media_details map of generated size variants.
+  relationships:
+  - type: belongs_to
+    target: Page
+    via: post
+    detail: Id of the object the attachment is attached to; null for unattached uploads.
+  - type: belongs_to
+    target: User
+    via: author
+    detail: DANGLING for the same reason as Page.author.
+- name: Term
+  collections: [/wp/v2/categories, /wp/v2/tags, /wp/v2/portfolio-types]
+  description: >-
+    Taxonomy terms. All three taxonomies are effectively empty — categories holds only the default
+    "Uncategorized" (count 0), tags holds nothing, and portfolio-types holds a single "leadership"
+    term (count 0).
+  relationships:
+  - type: belongs_to
+    target: Term
+    via: parent
+    detail: Hierarchical taxonomies (category, portfolio-types) only.
+- name: PortfolioItem
+  collection: /wp/v2/portfolio
+  count_observed: 0
+  description: >-
+    A custom post type registered by the site theme, intended for leadership entries. Empty — the
+    leadership content is authored inside the About Us page body instead.
+  relationships:
+  - type: has_many
+    target: Term
+    via: portfolio-types
+- name: SearchResult
+  collection: /wp/v2/search
+  description: >-
+    A projection, not a stored entity — lightweight {id, title, url, type, subtype} rows across
+    every searchable post type. On this site every result has subtype "page".
+  relationships:
+  - type: has_one
+    target: Page
+    via: id
+    detail: Resolve through the _links.self href, which points at /wp/v2/pages/{id}.
+- name: PostType
+  collection: /wp/v2/types
+  description: Registry metadata describing which content types exist and where they are mounted.
+- name: Taxonomy
+  collection: /wp/v2/taxonomies
+  description: Registry metadata describing which taxonomies exist and which types they apply to.
+unresolvable_references:
+- field: author
+  on: [Page, Post, MediaItem]
+  reason: /wp/v2/users returns 401 rest_user_cannot_view anonymously.
+traversal_notes: >-
+  The practical graph is small — pages linked to their parent, and a media library. To enumerate the
+  full press archive, list /wp/v2/pages with per_page=100 and filter parent=99; to get the text of a
+  release you must fetch its HTML `link`, because the API returns an empty content field. The
+  per-page yoast_head_json object is the only descriptive text the API itself yields.

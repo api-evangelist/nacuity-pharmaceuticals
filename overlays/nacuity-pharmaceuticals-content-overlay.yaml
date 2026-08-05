@@ -1,0 +1,94 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Nacuity Pharmaceuticals Content API
+  version: '1.0.0'
+  description: >-
+    An OpenAPI Overlay 1.0.0 document recording the enhancements API Evangelist applied on top of
+    the bare WordPress route index published at https://www.nacuity.com/wp-json/. The route index is
+    a machine-readable list of paths, methods and argument names — it carries no summaries, no
+    descriptions, no response schemas, no examples, no tags and no operationIds. Everything this
+    overlay adds is either an observation from a live anonymous probe on 2026-08-04 or editorial
+    context; no capability is asserted that the API does not have.
+x-generated: '2026-08-04'
+x-method: generated
+x-source: openapi/nacuity-pharmaceuticals-content-openapi.yml
+extends: ./../openapi/nacuity-pharmaceuticals-content-openapi.yml
+actions:
+- target: $.info
+  description: >-
+    Name the surface, state plainly that Nacuity Pharmaceuticals runs no developer program, and
+    carry the provenance of the derivation. The route index supplies only a site name and
+    description.
+  update:
+    x-overlay-note: Provenance and framing added by API Evangelist; not published by the provider.
+- target: $.servers
+  description: Declare the production server. The route index has no servers construct.
+  update:
+    x-overlay-note: Server URL taken from the `url` field of the /wp-json/ index document.
+- target: $.tags
+  description: >-
+    Group 22 operations into nine functional tags — pages, posts, media, portfolio, taxonomy,
+    search, discovery, oembed, seo — and annotate each with the count actually observed, so a reader
+    learns immediately that posts, portfolio and tags are empty.
+  update:
+    x-overlay-note: Tags and their observed counts added by API Evangelist.
+- target: $.paths.*.get
+  description: >-
+    Add operationId, summary and description to every operation. WordPress publishes none of these;
+    an agent binding tools to this API has nothing to name them with otherwise.
+  update:
+    x-overlay-note: operationId/summary/description authored by API Evangelist.
+- target: $.paths['/wp/v2/pages/{id}'].get
+  description: >-
+    Record the single most consequential finding of the probe — content.rendered and
+    excerpt.rendered are empty strings on all 29 published pages, because the bodies live in
+    page-builder post meta. A consumer must fetch the HTML `link` for text. Nothing in the route
+    index reveals this; it is only visible from a live response.
+  update:
+    x-overlay-note: Empty-content finding, verified on pages 23, 80 and 630 on 2026-08-04.
+- target: $.paths['/wp/v2/posts'].get
+  description: Record that the posts collection is registered but empty (X-WP-Total 0) — press releases are pages under parent 99.
+  update:
+    x-overlay-note: Emptiness verified via X-WP-Total on 2026-08-04.
+- target: $.paths['/wp/v2/portfolio'].get
+  description: Record that the theme-registered `portfolio` custom post type is empty (X-WP-Total 0).
+  update:
+    x-overlay-note: Emptiness verified via X-WP-Total on 2026-08-04.
+- target: $.paths['/yoast/v1/get_head'].get
+  description: >-
+    Include the one anonymously readable operation in the yoast/v1 namespace and mark the other 40
+    as gated, so a reader does not treat the namespace as open.
+  update:
+    x-overlay-note: Anonymous readability verified per-endpoint on 2026-08-04.
+- target: $.components.schemas
+  description: >-
+    Author twelve response schemas — ApiIndex, Page, Post, MediaItem, Term, SearchResult, PostType,
+    Taxonomy, Oembed, YoastHead, RenderedText, Error — from observed response bodies. The route
+    index describes request arguments only and says nothing about what comes back.
+  update:
+    x-overlay-note: Response schemas derived from live response bodies, not from a provider document.
+- target: $.components.schemas.Page.properties.yoast_head_json
+  description: >-
+    Document the Yoast block as the only per-page descriptive text the API returns, including the
+    schema.org @graph. This is what makes the surface useful despite the empty content fields.
+  update:
+    x-overlay-note: See json-ld/nacuity-pharmaceuticals-organization.jsonld for the graph, saved verbatim.
+- target: $.components.schemas.Error
+  description: >-
+    Document the WordPress {code, message, data} envelope and state explicitly that it is NOT
+    RFC 9457 problem+json, so a client does not build against the wrong error contract.
+  update:
+    x-overlay-note: Envelope and every error slug captured verbatim from live 400/401/403/404 responses.
+- target: $.components.headers
+  description: Declare X-WP-Total, X-WP-TotalPages and the RFC 8288 Link header as documented response headers.
+  update:
+    x-overlay-note: Pagination totals are header-only; the response body is a bare array.
+- target: $.paths
+  description: >-
+    RESTRICT the surface. The live route index registers 211 routes across nine namespaces, most of
+    them write operations or administrative endpoints that refuse anonymous callers. This document
+    models only the 22 GET operations verified to return 200 without credentials. Everything
+    excluded is itemised in authentication/nacuity-pharmaceuticals-authentication.yml with the
+    status and error slug it actually returned.
+  update:
+    x-overlay-note: 22 of 211 routes modelled — a deliberate restriction, not an omission.

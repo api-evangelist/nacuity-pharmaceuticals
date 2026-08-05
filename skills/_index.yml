@@ -1,0 +1,41 @@
+generated: '2026-08-04'
+method: generated
+source: openapi/nacuity-pharmaceuticals-content-openapi.yml
+note: >-
+  Nacuity Pharmaceuticals publishes no AGENTS.md, no skills and no developer documentation of its
+  own — these are API Evangelist packaged operating instructions for the one machine-readable
+  surface it does expose, the anonymous WordPress REST content API behind www.nacuity.com. Every
+  operationId referenced below exists verbatim in the OpenAPI in this repo. There is no product API,
+  so there are no product flows to package; the skills cover reading content, tracking the press
+  archive, and harvesting the media library — together with the two traps a naive consumer falls
+  into on this site: content.rendered is EMPTY on all 29 pages, and the posts collection and RSS
+  feed are both empty because every press release is authored as a child page of the News page.
+api: nacuity-pharmaceuticals:nacuity-pharmaceuticals-content-api
+skills:
+- file: nacuity-pharmaceuticals-read-corporate-content.md
+  name: Read Nacuity Pharmaceuticals corporate and clinical-programme content
+  description: >-
+    Enumerate the 29 published pages — About Us, Our Science, Pipeline, Development Programs,
+    Investors & Collaborators, Medical Information, Publications, Expanded Access Policy,
+    References, Contact — and work around the empty content fields by fetching the HTML link for
+    prose and taking structured facts from the per-page schema.org graph.
+  api: openapi/nacuity-pharmaceuticals-content-openapi.yml
+  operations: [listTypes, listPages, getPage]
+- file: nacuity-pharmaceuticals-track-press-releases.md
+  name: Track Nacuity Pharmaceuticals press releases and regulatory milestones
+  description: >-
+    Build and incrementally poll a press index by walking the child pages of the News page (id 99),
+    covering the FDA Breakthrough Therapy and Fast Track designations for NPI-001, the NPI-002
+    intravitreal implant trial, financings and board appointments — and handling the empty posts
+    collection and empty RSS feed.
+  api: openapi/nacuity-pharmaceuticals-content-openapi.yml
+  operations: [listPages, getPage, listPosts, searchContent]
+- file: nacuity-pharmaceuticals-harvest-media-library.md
+  name: Harvest the Nacuity Pharmaceuticals media library
+  description: >-
+    Page through the 140-item media library for the company logo, leadership headshots, scientific
+    figures and page imagery with source URLs, MIME types, alt text and pre-rendered size variants,
+    including incremental re-sync via modified_after. The only collection on this deployment that
+    returns substantive content over the API.
+  api: openapi/nacuity-pharmaceuticals-content-openapi.yml
+  operations: [listMedia, getMediaItem, listPages]

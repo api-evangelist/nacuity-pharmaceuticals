@@ -1,0 +1,94 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.nacuity.com/",
+      "url": "https://www.nacuity.com/",
+      "name": "Home &#8211; Nacuity Pharmaceuticals",
+      "isPartOf": {
+        "@id": "https://www.nacuity.com/#website"
+      },
+      "datePublished": "2014-12-02T09:30:24+00:00",
+      "dateModified": "2024-07-30T09:57:41+00:00",
+      "description": "Advancing a promising treatment for retinitis pigmentosa",
+      "breadcrumb": {
+        "@id": "https://www.nacuity.com/#breadcrumb"
+      },
+      "inLanguage": "en-US",
+      "potentialAction": [
+        {
+          "@type": "ReadAction",
+          "target": [
+            "https://www.nacuity.com/"
+          ]
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.nacuity.com/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.nacuity.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Home"
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.nacuity.com/#website",
+      "url": "https://www.nacuity.com/",
+      "name": "Nacuity Pharmaceuticals",
+      "description": "Advancing a promising treatment for retinitis pigmentosa",
+      "publisher": {
+        "@id": "https://www.nacuity.com/#organization"
+      },
+      "potentialAction": [
+        {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://www.nacuity.com/?s={search_term_string}"
+          },
+          "query-input": {
+            "@type": "PropertyValueSpecification",
+            "valueRequired": true,
+            "valueName": "search_term_string"
+          }
+        }
+      ],
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://www.nacuity.com/#organization",
+      "name": "Nacuity Pharmaceuticals, Inc.",
+      "url": "https://www.nacuity.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "inLanguage": "en-US",
+        "@id": "https://www.nacuity.com/#/schema/logo/image/",
+        "url": "https://www.nacuity.com/wp-content/uploads/2017/03/nacuity-pharmaceuticals-inc_web.png",
+        "contentUrl": "https://www.nacuity.com/wp-content/uploads/2017/03/nacuity-pharmaceuticals-inc_web.png",
+        "width": 244,
+        "height": 60,
+        "caption": "Nacuity Pharmaceuticals, Inc."
+      },
+      "image": {
+        "@id": "https://www.nacuity.com/#/schema/logo/image/"
+      },
+      "sameAs": [
+        "https://x.com/nacuitypharma",
+        "https://www.linkedin.com/company/nacuity-pharmaceuticals-inc/"
+      ]
+    }
+  ]
+}

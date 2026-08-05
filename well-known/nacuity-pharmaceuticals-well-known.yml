@@ -1,0 +1,49 @@
+generated: '2026-08-04'
+method: probed
+source: live GET probes of every /.well-known/ path against the content-API host
+description: >-
+  Result of probing the RFC-registered /.well-known/ discovery surface on the only host Nacuity
+  Pharmaceuticals operates, www.nacuity.com. Every path returned 404. The host is a WordPress site
+  behind Apache/PHP 8.3.31; it answers unknown paths with the theme's own 404 HTML page, not a
+  catch-all 200, so these are true misses rather than SPA false negatives. Absence of a record is
+  valid data — Nacuity Pharmaceuticals publishes no security.txt, no OAuth or OpenID discovery
+  document, no api-catalog and no AI plugin manifest.
+hosts:
+- host: https://www.nacuity.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+other_discovery:
+- path: /robots.txt
+  status: 200
+  note: >-
+    Yoast-generated. Declares `User-agent: *` with an empty `Disallow:` — nothing is disallowed —
+    and points at the sitemap index.
+- path: /sitemap_index.xml
+  status: 200
+  note: Yoast sitemap index; contains a single child sitemap, page-sitemap.xml.
+- path: /wp-json/
+  status: 200
+  note: The WordPress REST route index. This is the machine-readable contract catalogued in this repo.
+- path: /llms.txt
+  status: 404
+  note: Not published by the provider. The llms/ file in this repo is an API Evangelist generation, not a harvest.

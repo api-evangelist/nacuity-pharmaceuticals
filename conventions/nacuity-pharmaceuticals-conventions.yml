@@ -1,0 +1,124 @@
+generated: '2026-08-04'
+method: derived
+source: >-
+  openapi/nacuity-pharmaceuticals-content-openapi.yml plus live anonymous request/response headers
+  observed against https://www.nacuity.com/wp-json/ on 2026-08-04.
+api: nacuity-pharmaceuticals-content-api
+summary: >-
+  Cross-cutting runtime semantics of the Nacuity Pharmaceuticals content API. These are WordPress
+  core conventions, not conventions Nacuity Pharmaceuticals authored or documents — the company
+  publishes no developer documentation for this surface. They are recorded here because they are
+  what an integrator actually has to code against.
+authentication:
+  style: none
+  detail: >-
+    No scheme is declared. Read operations take no credential; everything else is refused. See
+    authentication/nacuity-pharmaceuticals-authentication.yml.
+pagination:
+  style: page-number
+  params:
+  - name: page
+    default: 1
+    minimum: 1
+  - name: per_page
+    default: 10
+    minimum: 1
+    maximum: 100
+    note: Values outside 1-100 return 400 rest_invalid_param.
+  - name: offset
+    note: Supported as an alternative to page on post-type and portfolio collections.
+  response_fields: []
+  response_headers:
+  - name: X-WP-Total
+    description: Total matching records across all pages. Observed 29 on /wp/v2/pages, 140 on /wp/v2/media, 4 on the retinitis search.
+  - name: X-WP-TotalPages
+    description: Total pages at the current per_page.
+  - name: Link
+    description: RFC 8288 Link header carrying rel="next" and rel="prev".
+  note: >-
+    The collection body is a bare JSON array with no envelope, so the totals live only in headers.
+    A client that reads only the body cannot tell whether more pages exist.
+sorting:
+  params: [order, orderby]
+  order_default: desc
+  orderby_default: date
+  note: >-
+    orderby accepts relevance only when a search term is supplied. Term collections order by name
+    ascending by default, not by date.
+filtering:
+  params: [search, search_columns, search_semantics, slug, include, exclude, after, before, modified_after, modified_before, status, parent]
+  note: >-
+    `status` is accepted but anonymous callers may only request `publish`; any other value is
+    rejected. Date filters take ISO 8601 values.
+sparse_fieldsets:
+  supported: true
+  param: _fields
+  example: /wp/v2/pages?per_page=100&_fields=id,slug,title,link,parent
+  note: >-
+    _fields is the single most useful parameter on this API — the unfiltered page object carries a
+    large yoast_head markup string, so field-filtering cuts response size by an order of magnitude.
+embedding:
+  supported: true
+  param: _embed
+  note: >-
+    _embed inlines _links targets. Of limited value here because the most common embed target,
+    wp:featuredmedia, is unset (featured_media is 0 on the pages sampled) and author does not
+    resolve — /wp/v2/users returns 401.
+hateoas:
+  supported: true
+  field: _links
+  note: Every object carries a _links map with self, collection, about and (where applicable) up relations, plus targetHints.allow listing the methods available to the current caller.
+error_envelope:
+  format: wordpress-rest
+  rfc9457: false
+  content_type: application/json
+  see: errors/nacuity-pharmaceuticals-problem-types.yml
+idempotency:
+  supported: false
+  detail: >-
+    No idempotency key, no request-deduplication header, and no documented retry semantics. Moot in
+    practice — every operation catalogued here is a GET and therefore idempotent by HTTP method
+    alone. No `type: Idempotency` pointer is emitted for this provider because no idempotency
+    facility exists.
+request_tracing:
+  request_id_header: none
+  detail: The origin returns no X-Request-Id, X-Correlation-Id or equivalent. A caller cannot cite a request identifier in a support conversation.
+rate_limiting:
+  documented: false
+  headers: none
+  detail: >-
+    No X-RateLimit-*, no RateLimit-* (RFC 9239 draft) and no Retry-After was observed across the
+    full probe run. Wordfence is installed on the site and may throttle at the edge, but it
+    advertises nothing to a caller. Treat throughput as unspecified and be conservative.
+versioning:
+  scheme: namespace-in-path
+  current: wp/v2
+  detail: >-
+    The version is the WordPress core namespace, not a Nacuity version. Namespaces registered on
+    this deployment are oembed/1.0, sliderrevolution, wordfence/v1, yoast/v1, exactmetrics/v1,
+    wp/v2, wp-site-health/v1, wp-block-editor/v1 and wp-abilities/v1. Nacuity Pharmaceuticals does
+    not version this surface itself; its shape changes when WordPress or a plugin is upgraded.
+  see: lifecycle/nacuity-pharmaceuticals-lifecycle.yml
+caching:
+  detail: >-
+    No Cache-Control, ETag or Last-Modified was observed on REST responses. Objects do carry
+    `modified` and `modified_gmt` fields, so a client can poll modified_after to detect change
+    rather than refetching whole collections.
+content_negotiation:
+  media_types: [application/json]
+  detail: >-
+    JSON only, except /oembed/1.0/embed which accepts format=xml. Alternative representation for
+    any object is available at its HTML `link` URL.
+notable_deviation:
+  empty_content_fields: >-
+    The single most important thing to know about this API — `content.rendered` and
+    `excerpt.rendered` are empty strings on all 29 published pages. Body text is authored in
+    page-builder post meta that WordPress does not project into REST. A consumer wanting the text of
+    a Nacuity press release must fetch the HTML `link`, not the API object. What the API reliably
+    gives you is identity, hierarchy, dates, the 140-item media library, and the Yoast SEO /
+    schema.org metadata block.
+cross_references:
+- errors/nacuity-pharmaceuticals-problem-types.yml
+- authentication/nacuity-pharmaceuticals-authentication.yml
+- lifecycle/nacuity-pharmaceuticals-lifecycle.yml
+- data-model/nacuity-pharmaceuticals-data-model.yml

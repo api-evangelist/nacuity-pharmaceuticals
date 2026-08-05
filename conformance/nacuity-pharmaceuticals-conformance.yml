@@ -1,0 +1,102 @@
+generated: '2026-08-04'
+method: derived
+source: >-
+  openapi/nacuity-pharmaceuticals-content-openapi.yml, live response headers and bodies from
+  https://www.nacuity.com/wp-json/ on 2026-08-04, and a search of www.nacuity.com for published
+  compliance or certification claims.
+api: nacuity-pharmaceuticals-content-api
+summary: >-
+  Cross-cutting standards assertions for the Nacuity Pharmaceuticals content API. Nacuity
+  Pharmaceuticals is a clinical-stage biopharmaceutical company; it operates a corporate website, not
+  a software platform, and it publishes no compliance program, no certification page and no trust
+  center. Every `conforms: false` below is an honest observation, not a criticism of an API the
+  company never set out to ship.
+standards:
+- id: rest
+  conforms: true
+  evidence: >-
+    Resource-oriented paths, GET-only public surface, JSON representations, and RFC 8288 Link
+    headers for pagination. HATEOAS is present via the _links map on every object.
+- id: openapi
+  conforms: false
+  evidence: >-
+    Nacuity Pharmaceuticals publishes no OpenAPI. The document in openapi/ is an API Evangelist
+    derivation of the route index the site publishes at /wp-json/, not a provider artifact.
+- id: json-schema
+  conforms: partial
+  evidence: >-
+    WordPress exposes a JSON Schema per route via the OPTIONS method and the `schema` block in the
+    route index, so a schema is discoverable per endpoint. It is Draft-04 flavoured WordPress
+    schema, not a published, versioned JSON Schema document set.
+- id: rfc9457
+  conforms: false
+  evidence: >-
+    Errors are served as application/json with the WordPress {code, message, data} envelope. No
+    `type` URI, no `title`, no `instance`, no application/problem+json media type. See
+    errors/nacuity-pharmaceuticals-problem-types.yml.
+- id: rfc8288
+  conforms: true
+  evidence: Collection responses carry a Link header with rel="next"/rel="prev".
+- id: pagination
+  conforms: true
+  evidence: page + per_page (1-100), with X-WP-Total and X-WP-TotalPages headers. Offset paging also supported.
+- id: idempotency
+  conforms: false
+  evidence: >-
+    No idempotency key facility. Moot for the public surface, which is entirely GET, but nothing is
+    published for the write half.
+- id: oauth2
+  conforms: false
+  evidence: /.well-known/oauth-authorization-server returned 404. No OAuth of any kind.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returned 404.
+- id: rfc9116
+  conforms: false
+  evidence: /.well-known/security.txt returned 404. No published security contact or disclosure policy.
+- id: rfc8594
+  conforms: false
+  evidence: No Sunset or Deprecation headers observed on any response, and no deprecation policy is published.
+- id: oembed
+  conforms: true
+  evidence: >-
+    /oembed/1.0/embed returns a valid oEmbed 1.0 rich response for nacuity.com URLs, with
+    provider_name "Nacuity Pharmaceuticals". Verified 200 anonymously.
+- id: schema-org
+  conforms: true
+  evidence: >-
+    Every page carries a schema.org JSON-LD @graph — WebPage, BreadcrumbList, WebSite and
+    Organization — served both in the HTML head and in the API's yoast_head_json field. Saved
+    verbatim in json-ld/nacuity-pharmaceuticals-organization.jsonld.
+- id: sitemaps-org
+  conforms: true
+  evidence: https://www.nacuity.com/sitemap_index.xml returned 200; a Yoast sitemap index with one child, page-sitemap.xml.
+- id: rfc9309
+  conforms: true
+  evidence: /robots.txt returned 200 and is well-formed; nothing is disallowed.
+- id: asyncapi
+  conforms: false
+  evidence: No event, webhook or streaming surface exists on this deployment. Not applicable rather than missing.
+- id: mcp
+  conforms: false
+  evidence: >-
+    No MCP server. Notably the site DOES register the WordPress Abilities API (wp-abilities/v1), an
+    agent-facing capability registry, but every endpoint under it returns 401 rest_forbidden
+    anonymously, so no agent surface is exposed.
+- id: a2a
+  conforms: false
+  evidence: /.well-known/agent-card.json and /.well-known/agent.json both returned 404.
+- id: hipaa
+  conforms: unknown
+  evidence: >-
+    Nacuity Pharmaceuticals runs clinical trials and would handle protected health information in
+    that context, but it publishes no HIPAA statement, BAA posture or compliance page on
+    www.nacuity.com, and no such data touches the content API. Nothing is asserted.
+- id: fhir
+  conforms: false
+  evidence: No health-data API of any kind. The company's clinical data is not exposed publicly.
+compliance_program_published: false
+certifications_published: []
+note: >-
+  No `type: Compliance` pointer is emitted in apis.yml for this provider, because no compliance
+  program or certification is published. Emitting one would be fabrication.

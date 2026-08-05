@@ -42,5 +42,16 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Nacuity Pharmaceuticals is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
+Nacuity Pharmaceuticals, Inc. is a clinical-stage biopharmaceutical company headquartered in Fort Worth, Texas,
+with operations in Carlton South, Victoria, Australia. It develops targeted therapeutics against oxidative stress,
+the mechanism it holds responsible for a family of blinding eye diseases. Its lead asset, NPI-001
+(N-acetylcysteine amide) tablets, is in development for retinitis pigmentosa and holds U.S. FDA Breakthrough
+Therapy, Fast Track and Orphan Drug designations; a second programme, NPI-002, is an intravitreal implant for the
+delay of cataract progression.
+
+Nacuity Pharmaceuticals runs no developer program and publishes no product API, no developer portal and no API
+documentation. The only machine-readable surface reachable without credentials is the WordPress REST content API
+behind www.nacuity.com, catalogued in this repository.
+
+- https://www.nacuity.com/
 - https://forgeglobal.com/nacuity-pharmaceuticals_stock/

@@ -1,0 +1,22 @@
+generated: '2026-08-04'
+method: searched
+source: https://www.nacuity.com/wp-json/wp/v2/pages/80?_fields=yoast_head_json
+description: >-
+  The schema.org JSON-LD @graph Nacuity Pharmaceuticals publishes on every page of www.nacuity.com,
+  saved verbatim from the homepage (page id 80) as served by the site's own REST API. Emitted by the
+  Yoast SEO plugin. It is the only structured, machine-readable description of the company Nacuity
+  Pharmaceuticals publishes anywhere. The graph carries four nodes — WebPage, BreadcrumbList,
+  WebSite and Organization — of which Organization is the substantive one — legal name
+  "Nacuity Pharmaceuticals, Inc.", canonical URL, a 244x60 logo ImageObject, and sameAs links to
+  the company's X and LinkedIn profiles.
+files:
+- file: nacuity-pharmaceuticals-organization.jsonld
+  page_id: 80
+  page: https://www.nacuity.com/
+  http_status: 200
+  content_type: application/json
+  fetched: '2026-08-04'
+  nodes: [WebPage, BreadcrumbList, WebSite, Organization]
+note: >-
+  The same @graph is present on all 29 published pages, varying only in the WebPage and
+  BreadcrumbList nodes. Nothing here was authored by API Evangelist.

@@ -1,0 +1,69 @@
+generated: '2026-08-04'
+method: derived
+source: >-
+  A search of www.nacuity.com for versioning, deprecation, SLA and status pages, plus live response
+  headers from https://www.nacuity.com/wp-json/ on 2026-08-04.
+api: nacuity-pharmaceuticals-content-api
+summary: >-
+  Nacuity Pharmaceuticals publishes no API lifecycle commitments of any kind. It does not present
+  this surface as an API, so there is no versioning policy, no deprecation policy, no SLA, no status
+  page and no changelog for it. What follows is what an integrator can actually observe.
+versioning:
+  scheme: namespace-in-path
+  current: wp/v2
+  owner: WordPress core, not Nacuity Pharmaceuticals
+  policy_published: false
+  detail: >-
+    The only version identifier is the WordPress core namespace. Nacuity does not version this
+    surface; its shape changes when WordPress or one of its plugins is upgraded, without notice.
+    Nine namespaces are registered — oembed/1.0, sliderrevolution, wordfence/v1, yoast/v1,
+    exactmetrics/v1, wp/v2, wp-site-health/v1, wp-block-editor/v1, wp-abilities/v1 — and the
+    plugin-owned ones (sliderrevolution, wordfence, yoast, exactmetrics) will appear and disappear
+    with plugin changes.
+  stability_risk: >-
+    Highest for the plugin namespaces. The `yoast/v1/get_head` operation catalogued here exists only
+    because Yoast SEO is installed; it would vanish if the plugin were removed. The `portfolio` and
+    `portfolio-types` routes exist only because the active theme registers them.
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  detail: >-
+    No Sunset or Deprecation header was observed on any response, and no deprecation notice is
+    published anywhere on the site. Nothing in the OpenAPI carries `deprecated: true`.
+  deprecated_operations: []
+sla:
+  published: false
+  uptime_target: null
+status_page:
+  published: false
+  probes:
+  - url: https://status.nacuity.com
+    status: DNS_NXDOMAIN
+  - url: https://www.nacuity.com/status
+    status: 404
+  detail: >-
+    No status page exists. No `type: StatusPage` pointer is emitted in apis.yml, because emitting
+    one would assert a page the company does not publish.
+changelog:
+  api_changelog_published: false
+  detail: >-
+    There is no API changelog. The company does maintain a dated corporate press archive at
+    https://www.nacuity.com/news/ — 17 releases from the Johns Hopkins licence through the January
+    2025 FDA Fast Track designation and the FDA Breakthrough Therapy designation — but that is
+    company news, not a record of API change, and it is wired into apis.yml as a News pointer rather
+    than as a ChangeLog.
+support:
+  developer_support_channel: false
+  general_contact: https://www.nacuity.com/contact/
+  detail: >-
+    The only contact route is the corporate contact page (info@nacuity.com, +1-817-336-3000). There
+    is no developer support channel, forum, or issue tracker for this surface.
+observed_platform:
+  server: Apache
+  runtime: PHP/8.3.31
+  cms: WordPress
+  note: >-
+    Reported by response headers on 2026-08-04. Recorded because on a WordPress-backed surface the
+    platform version, not a provider policy, is what governs breaking change.

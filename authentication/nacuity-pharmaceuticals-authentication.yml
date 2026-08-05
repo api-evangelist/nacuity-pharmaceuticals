@@ -1,0 +1,72 @@
+generated: '2026-08-04'
+method: probed
+source: >-
+  Live anonymous probes of https://www.nacuity.com/wp-json/ plus the WordPress REST route index,
+  2026-08-04. Nacuity Pharmaceuticals publishes no authentication documentation of its own.
+api: nacuity-pharmaceuticals-content-api
+summary: >-
+  The Nacuity Pharmaceuticals content API declares NO authentication schemes. The REST index at
+  /wp-json/ returns `"authentication": []`, meaning WordPress core has no application-password or
+  other REST authentication provider registered for anonymous negotiation. The read operations
+  catalogued in this repo require no credentials at all. Everything else — writes, users, settings,
+  menus, themes, plugins, templates, the wp-abilities/v1 capability registry, wordfence/v1 and the
+  administrative half of yoast/v1 and exactmetrics/v1 — is refused anonymously with a WordPress
+  capability error, and the only credential path is a logged-in WordPress session cookie plus a
+  nonce, or an application password issued from wp-admin. Neither is obtainable by a third party,
+  and neither is documented publicly, so no scheme is asserted here.
+schemes: []
+observed:
+- surface: read operations in openapi/nacuity-pharmaceuticals-content-openapi.yml
+  auth_required: false
+  evidence: 'All 22 modelled operations returned HTTP 200 with no Authorization header on 2026-08-04.'
+- surface: /wp/v2/users
+  auth_required: true
+  status: 401
+  code: rest_user_cannot_view
+  evidence: 'Sorry, you are not allowed to list users.'
+- surface: /wp/v2/settings
+  auth_required: true
+  status: 401
+  code: rest_forbidden
+- surface: /wp/v2/menus, /wp/v2/menu-items, /wp/v2/menu-locations
+  auth_required: true
+  status: 401
+  code: rest_cannot_view
+- surface: /wp/v2/themes, /wp/v2/plugins, /wp/v2/templates, /wp/v2/block-types, /wp/v2/widgets, /wp/v2/widget-types, /wp/v2/sidebars, /wp/v2/icons, /wp/v2/font-collections, /wp/v2/block-patterns/patterns, /wp/v2/pattern-directory/patterns
+  auth_required: true
+  status: 401
+- surface: /wp-abilities/v1/*
+  auth_required: true
+  status: 401
+  code: rest_forbidden
+  note: >-
+    The WordPress Abilities API — an agent-facing capability registry — is registered on this
+    deployment but every endpoint under it, including the read-only /abilities and /categories
+    listings, refuses anonymous callers. No agent surface is claimed for this provider.
+- surface: /wordfence/v1/*
+  auth_required: true
+  status: 401
+  code: rest_forbidden_context
+  evidence: 'Authorization header format is invalid.'
+- surface: /wp-site-health/v1/*
+  auth_required: true
+  status: 401
+  code: rest_forbidden
+- surface: /wp/v2/comments
+  auth_required: false
+  status: 403
+  code: rest_comment_disabled
+  note: Not an auth wall — comments are switched off site-wide, so the collection is unavailable to anyone.
+credential_issuance:
+  self_service: false
+  note: >-
+    There is no signup, no developer portal, no API key issuance and no OAuth client registration.
+    Nacuity Pharmaceuticals does not market this surface as an API; it is the WordPress content
+    surface its own site runs on.
+transport:
+  https_required: true
+  tls_version_observed: TLSv1.2
+  hsts: false
+  note: >-
+    The origin sends `Content-Security-Policy: upgrade-insecure-requests` but no
+    Strict-Transport-Security header, so HTTPS is not pinned for a first-time client.

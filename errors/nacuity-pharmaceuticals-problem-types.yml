@@ -1,0 +1,130 @@
+generated: '2026-08-04'
+method: derived
+source: >-
+  openapi/nacuity-pharmaceuticals-content-openapi.yml plus the verbatim error bodies returned by
+  live anonymous probes of https://www.nacuity.com/wp-json/ on 2026-08-04.
+api: nacuity-pharmaceuticals-content-api
+format: wordpress-rest
+rfc9457: false
+content_type: application/json
+note: >-
+  This API does NOT use RFC 9457 problem+json. It returns the WordPress REST error envelope as
+  application/json — a flat object with `code` (machine-readable slug), `message` (human string) and
+  `data` (an object carrying at minimum `status`, and `params` on validation failures). There is no
+  `type` URI, no `title`, no `instance` and no problem registry. Every error slug below was
+  observed verbatim; none is inferred.
+envelope:
+  fields:
+  - name: code
+    type: string
+    description: Machine-readable error slug. This is the field to branch on.
+  - name: message
+    type: string
+    description: Human-readable, localized message. Not stable — do not match on it.
+  - name: data.status
+    type: integer
+    description: Mirrors the HTTP status code.
+  - name: data.params
+    type: object
+    description: Present on rest_invalid_param; maps the offending parameter name to its constraint message.
+  example:
+    code: rest_post_invalid_id
+    message: Invalid post ID.
+    data:
+      status: 404
+problem_types:
+- code: rest_no_route
+  status: 404
+  title: No route matched
+  observed: true
+  remediation: Check the path against the route index at /wp-json/. 211 routes are registered across nine namespaces.
+- code: rest_post_invalid_id
+  status: 404
+  title: Invalid object ID
+  observed: true
+  operations: [getPage, getPost, getMediaItem, getPortfolioItem]
+  remediation: The id does not exist or is not published. List the collection first and use an id from it.
+- code: rest_term_invalid
+  status: 404
+  title: Invalid term ID
+  operations: [getCategory, getTag, getPortfolioType]
+  remediation: Resolve the term id from listCategories, listTags or listPortfolioTypes.
+- code: rest_invalid_param
+  status: 400
+  title: Parameter failed validation
+  observed: true
+  remediation: >-
+    Read data.params for the specific constraint. The most common cause is per_page outside 1-100;
+    the API answers 'per_page must be between 1 (inclusive) and 100 (inclusive)'.
+- code: rest_forbidden
+  status: 401
+  title: Not allowed
+  observed: true
+  operations_gated: ['/wp/v2/settings', '/wp-abilities/v1/*', '/wp-site-health/v1/*', '/yoast/v1/statistics']
+  remediation: >-
+    Requires an authenticated WordPress session with the matching capability. There is no public
+    credential path — do not retry anonymously.
+- code: rest_user_cannot_view
+  status: 401
+  title: Not allowed to list users
+  observed: true
+  operations_gated: ['/wp/v2/users']
+  remediation: >-
+    Author records are not exposed on this deployment. The `author` integer on pages, posts and
+    media therefore does not resolve; treat it as an opaque id.
+- code: rest_cannot_view
+  status: 401
+  title: Not allowed to view this collection
+  observed: true
+  operations_gated: ['/wp/v2/menus', '/wp/v2/menu-items', '/wp/v2/menu-locations', '/wp/v2/icons', '/wp/v2/block-patterns/patterns']
+- code: rest_cannot_view_themes
+  status: 401
+  title: Not allowed to view themes
+  observed: true
+- code: rest_cannot_view_plugins
+  status: 401
+  title: Not allowed to manage plugins
+  observed: true
+- code: rest_cannot_manage_templates
+  status: 401
+  title: Not allowed to access templates
+  observed: true
+- code: rest_cannot_manage_widgets
+  status: 401
+  title: Not allowed to manage widgets
+  observed: true
+  operations_gated: ['/wp/v2/widgets', '/wp/v2/widget-types', '/wp/v2/sidebars']
+- code: rest_block_type_cannot_view
+  status: 401
+  title: Not allowed to manage block types
+  observed: true
+- code: rest_cannot_read
+  status: 401
+  title: Not allowed to access font collections
+  observed: true
+- code: rest_pattern_directory_cannot_view
+  status: 401
+  title: Not allowed to browse the local block pattern directory
+  observed: true
+- code: rest_cannot_view_url_details
+  status: 401
+  title: Not allowed to process remote URLs
+  observed: true
+  operations_gated: ['/wp-block-editor/v1/url-details']
+- code: rest_forbidden_context
+  status: 401
+  title: Authorization header format is invalid
+  observed: true
+  operations_gated: ['/wordfence/v1/*']
+- code: rest_comment_disabled
+  status: 403
+  title: Comments are disabled
+  observed: true
+  operations_gated: ['/wp/v2/comments']
+  remediation: >-
+    Not an authentication failure. Comments are switched off site-wide, so this collection is
+    unavailable to every caller including authenticated ones.
+retry_guidance: >-
+  401 and 403 on this API are terminal for an anonymous client — there is no credential a third
+  party can obtain, so retrying or backing off will not help. 400 is terminal until the parameter is
+  corrected. 404 is terminal for that id. Only 5xx warrants a retry; none was observed.
