@@ -1,0 +1,422 @@
+openapi: 3.2.0
+info:
+  title: Nacuity Pharmaceuticals Content Taxonomy API
+  version: wp/v2
+  summary: Anonymously readable WordPress REST content API behind www.nacuity.com.
+  description: The read-only content surface Nacuity Pharmaceuticals exposes at https://www.nacuity.com/wp-json. Nacuity Pharmaceuticals is a clinical-stage biopharmaceutical company developing NPI-001 (N-acetylcysteine amide tablets) for retinitis pigmentosa and NPI-002 (an intravitreal implant) for the delay of cataract progression; it runs no developer program and markets no product API. This document is an API Evangelist derivation of the WordPress `wp/v2` route index the site publishes at /wp-json/, restricted to the operations that were verified to return data anonymously on 2026-08-04. Write operations, `/wp/v2/users`, `/wp/v2/settings`, `/wp/v2/menus`, `/wp/v2/themes`, `/wp/v2/plugins`, `/wp/v2/templates`, the `wp-abilities/v1` namespace, the `wordfence/v1` namespace, the `wp-site-health/v1` namespace and the authenticated half of `yoast/v1` and `exactmetrics/v1` all require authentication and are deliberately excluded — see x-api-evangelist-provenance.
+  contact:
+    name: Nacuity Pharmaceuticals
+    url: https://www.nacuity.com/contact/
+  x-api-evangelist-provenance: Derived by the API Evangelist enrichment pipeline from the live WordPress REST route index at https://www.nacuity.com/wp-json/ (211 routes across the namespaces oembed/1.0, sliderrevolution, wordfence/v1, yoast/v1, exactmetrics/v1, wp/v2, wp-site-health/v1, wp-block-editor/v1 and wp-abilities/v1) and verified against live anonymous responses on 2026-08-04. Every parameter below appears verbatim in the route index `args` for that endpoint, and every operation modelled here returned 200 without credentials. Nacuity Pharmaceuticals publishes no OpenAPI, no developer documentation and no API reference for this surface; the humanURL in apis.yml points at the upstream WordPress REST handbook that defines the wp/v2 contract. Nothing here was obtained with credentials.
+servers:
+- url: https://www.nacuity.com/wp-json
+  description: Production content API
+tags:
+- name: taxonomy
+  description: Categories, tags and the `portfolio-types` custom taxonomy. Categories holds one term (Uncategorized, count 0); tags is empty; portfolio-types holds one term (leadership, count 0).
+paths:
+  /wp/v2/categories:
+    get:
+      tags:
+      - taxonomy
+      operationId: listCategories
+      summary: List categories
+      description: Lists post categories. Registered by WordPress core; every term reports count 0 on this deployment because there are no posts.
+      parameters:
+      - $ref: '#/components/parameters/Context'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PerPage'
+      - $ref: '#/components/parameters/Search'
+      - $ref: '#/components/parameters/Exclude'
+      - $ref: '#/components/parameters/Include'
+      - $ref: '#/components/parameters/Order'
+      - $ref: '#/components/parameters/Slug'
+      - name: hide_empty
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - name: parent
+        in: query
+        schema:
+          type: integer
+      - name: post
+        in: query
+        description: Limit result set to terms assigned to a specific post.
+        schema:
+          type: integer
+      - name: orderby
+        in: query
+        schema:
+          type: string
+          enum:
+          - id
+          - include
+          - name
+          - slug
+          - include_slugs
+          - term_group
+          - description
+          - count
+          default: name
+      responses:
+        '200':
+          description: A list of category terms.
+          headers:
+            X-WP-Total:
+              $ref: '#/components/headers/XWPTotal'
+            X-WP-TotalPages:
+              $ref: '#/components/headers/XWPTotalPages'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Term'
+        '400':
+          $ref: '#/components/responses/InvalidParam'
+  /wp/v2/categories/{id}:
+    get:
+      tags:
+      - taxonomy
+      operationId: getCategory
+      summary: Get a category
+      parameters:
+      - $ref: '#/components/parameters/PathId'
+      - $ref: '#/components/parameters/Context'
+      responses:
+        '200':
+          description: A category term
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Term'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /wp/v2/tags:
+    get:
+      tags:
+      - taxonomy
+      operationId: listTags
+      summary: List tags
+      parameters:
+      - $ref: '#/components/parameters/Context'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PerPage'
+      - $ref: '#/components/parameters/Search'
+      - $ref: '#/components/parameters/Exclude'
+      - $ref: '#/components/parameters/Include'
+      - $ref: '#/components/parameters/Offset'
+      - $ref: '#/components/parameters/Order'
+      - $ref: '#/components/parameters/Slug'
+      - name: hide_empty
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - name: post
+        in: query
+        schema:
+          type: integer
+      - name: orderby
+        in: query
+        schema:
+          type: string
+          enum:
+          - id
+          - include
+          - name
+          - slug
+          - include_slugs
+          - term_group
+          - description
+          - count
+          default: name
+      responses:
+        '200':
+          description: A list of tag terms.
+          headers:
+            X-WP-Total:
+              $ref: '#/components/headers/XWPTotal'
+            X-WP-TotalPages:
+              $ref: '#/components/headers/XWPTotalPages'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Term'
+        '400':
+          $ref: '#/components/responses/InvalidParam'
+  /wp/v2/tags/{id}:
+    get:
+      tags:
+      - taxonomy
+      operationId: getTag
+      summary: Get a tag
+      parameters:
+      - $ref: '#/components/parameters/PathId'
+      - $ref: '#/components/parameters/Context'
+      responses:
+        '200':
+          description: A tag term
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Term'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /wp/v2/portfolio-types:
+    get:
+      tags:
+      - taxonomy
+      operationId: listPortfolioTypes
+      summary: List portfolio-types terms
+      description: Lists terms in the `portfolio-types` custom taxonomy. This deployment returns one term — `leadership` — with count 0.
+      parameters:
+      - $ref: '#/components/parameters/Context'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PerPage'
+      - $ref: '#/components/parameters/Search'
+      - $ref: '#/components/parameters/Exclude'
+      - $ref: '#/components/parameters/Include'
+      - $ref: '#/components/parameters/Order'
+      - $ref: '#/components/parameters/Slug'
+      - name: orderby
+        in: query
+        schema:
+          type: string
+          enum:
+          - id
+          - include
+          - name
+          - slug
+          - include_slugs
+          - term_group
+          - description
+          - count
+          default: name
+      - name: hide_empty
+        in: query
+        description: Whether to hide terms not assigned to any posts.
+        schema:
+          type: boolean
+          default: false
+      - name: parent
+        in: query
+        description: Limit result set to terms assigned to a specific parent.
+        schema:
+          type: integer
+      - name: post
+        in: query
+        description: Limit result set to terms assigned to a specific post.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: A list of portfolio-types terms.
+          headers:
+            X-WP-Total:
+              $ref: '#/components/headers/XWPTotal'
+            X-WP-TotalPages:
+              $ref: '#/components/headers/XWPTotalPages'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Term'
+        '400':
+          $ref: '#/components/responses/InvalidParam'
+  /wp/v2/portfolio-types/{id}:
+    get:
+      tags:
+      - taxonomy
+      operationId: getPortfolioType
+      summary: Get a portfolio-types term
+      parameters:
+      - $ref: '#/components/parameters/PathId'
+      - $ref: '#/components/parameters/Context'
+      responses:
+        '200':
+          description: A portfolio-types term
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Term'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    Order:
+      name: order
+      in: query
+      description: Order sort attribute ascending or descending.
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+        default: desc
+    Page:
+      name: page
+      in: query
+      description: Current page of the collection.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    Exclude:
+      name: exclude
+      in: query
+      description: Ensure result set excludes specific IDs.
+      schema:
+        type: array
+        items:
+          type: integer
+    PathId:
+      name: id
+      in: path
+      required: true
+      description: Unique identifier for the object.
+      schema:
+        type: integer
+    Slug:
+      name: slug
+      in: query
+      description: Limit result set to posts with one or more specific slugs.
+      schema:
+        type: array
+        items:
+          type: string
+    Search:
+      name: search
+      in: query
+      description: Limit results to those matching a string.
+      schema:
+        type: string
+    PerPage:
+      name: per_page
+      in: query
+      description: Maximum number of items to be returned in result set. Values outside 1-100 return a 400 rest_invalid_param.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    Context:
+      name: context
+      in: query
+      description: Scope under which the request is made; determines fields present in response. Anonymous callers may only use `view` and `embed`.
+      schema:
+        type: string
+        enum:
+        - view
+        - embed
+        - edit
+        default: view
+    Include:
+      name: include
+      in: query
+      description: Limit result set to specific IDs.
+      schema:
+        type: array
+        items:
+          type: integer
+    Offset:
+      name: offset
+      in: query
+      description: Offset the result set by a specific number of items.
+      schema:
+        type: integer
+  responses:
+    NotFound:
+      description: The requested object does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            invalid-id:
+              value:
+                code: rest_post_invalid_id
+                message: Invalid post ID.
+                data:
+                  status: 404
+    InvalidParam:
+      description: One or more query parameters failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            per-page-out-of-bounds:
+              value:
+                code: rest_invalid_param
+                message: 'Invalid parameter(s): per_page'
+                data:
+                  status: 400
+                  params:
+                    per_page: per_page must be between 1 (inclusive) and 100 (inclusive)
+  schemas:
+    Term:
+      type: object
+      properties:
+        id:
+          type: integer
+        count:
+          type: integer
+        description:
+          type: string
+        link:
+          type: string
+          format: uri
+        name:
+          type: string
+        slug:
+          type: string
+        taxonomy:
+          type: string
+        parent:
+          type: integer
+        meta:
+          type: array
+          items:
+            type: object
+        _links:
+          type: object
+    Error:
+      type: object
+      description: The WordPress REST error envelope. Note this is NOT RFC 9457 application/problem+json — it is served as application/json with code/message/data.
+      required:
+      - code
+      - message
+      - data
+      properties:
+        code:
+          type: string
+          description: Machine-readable error slug
+          e.g. rest_post_invalid_id.: null
+        message:
+          type: string
+          description: Human-readable message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+            params:
+              type: object
+              additionalProperties:
+                type: string
+            details:
+              type: object
+  headers:
+    XWPTotalPages:
+      description: Total number of result pages at the current per_page.
+      schema:
+        type: integer
+    XWPTotal:
+      description: Total number of matching records across all pages.
+      schema:
+        type: integer

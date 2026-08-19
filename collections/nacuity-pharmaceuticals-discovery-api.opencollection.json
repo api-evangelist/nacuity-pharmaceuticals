@@ -1,0 +1,130 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nacuity Pharmaceuticals Content Discovery API",
+    "version": "wp/v2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the REST API index",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.nacuity.com/wp-json/",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response. Anonymous callers may only use `view` and `embed`."
+              },
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "query",
+                "description": "Restrict the response to a single namespace."
+              }
+            ]
+          },
+          "docs": "Returns the site index — name, description, URL, home, namespaces, authentication methods, and the full route table."
+        },
+        {
+          "info": {
+            "name": "List post types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.nacuity.com/wp-json/wp/v2/types",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response. Anonymous callers may only use `view` and `embed`."
+              }
+            ]
+          },
+          "docs": "Returns the registered post types keyed by slug — post, page, attachment and the WordPress block/template internals."
+        },
+        {
+          "info": {
+            "name": "Get a post type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.nacuity.com/wp-json/wp/v2/types/:type",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response. Anonymous callers may only use `view` and `embed`."
+              }
+            ]
+          },
+          "docs": "Get a post type"
+        },
+        {
+          "info": {
+            "name": "List taxonomies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.nacuity.com/wp-json/wp/v2/taxonomies",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response. Anonymous callers may only use `view` and `embed`."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to taxonomies associated with a specific post type."
+              }
+            ]
+          },
+          "docs": "List taxonomies"
+        },
+        {
+          "info": {
+            "name": "List post statuses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.nacuity.com/wp-json/wp/v2/statuses",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response. Anonymous callers may only use `view` and `embed`."
+              }
+            ]
+          },
+          "docs": "Returns the publicly visible post statuses. Anonymously this returns only `publish`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nacuity Pharmaceuticals Content Seo API",
+    "version": "wp/v2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "seo",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the rendered Yoast SEO head tags for a URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.nacuity.com/wp-json/yoast/v1/get_head",
+            "params": [
+              {
+                "name": "url",
+                "value": "",
+                "type": "query",
+                "description": "The nacuity.com URL to render head tags for."
+              }
+            ]
+          },
+          "docs": "Returns the SEO `<head>` block Yoast renders for a nacuity.com URL — title, canonical, robots directives, Open Graph and Twitter card tags, and the schema.org JSON-LD graph. Verified to return 200 anonymously. Every other operation in the yoast/v1 namespace returns 401 rest_forbidden without credentials."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,183 @@
+{
+  "item": [
+    {
+      "id": "e2bd1e48-27e1-434a-a313-ac1c15c127ab",
+      "name": "oembed",
+      "description": {
+        "content": "oEmbed 1.0 provider endpoint for nacuity.com URLs.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "154158fc-8bd5-4793-bb7d-6326ea19a124",
+          "name": "Get an oEmbed response for a www.nacuity.com URL",
+          "request": {
+            "name": "Get an oEmbed response for a www.nacuity.com URL",
+            "description": {},
+            "url": {
+              "path": [
+                "oembed",
+                "1.0",
+                "embed"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "url",
+                  "value": "<uri>",
+                  "description": "(Required) The URL of the resource for which to fetch oEmbed data."
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json"
+                },
+                {
+                  "disabled": false,
+                  "key": "maxwidth",
+                  "value": "600"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4da780f4-bf0c-4f58-9e1d-2b3cab65f713",
+              "name": "oEmbed 1.0 rich response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oembed",
+                    "1.0",
+                    "embed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": "<uri>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "maxwidth",
+                      "value": "600"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"version\": \"string\",\n  \"provider_name\": \"string\",\n  \"provider_url\": \"https://LjojT.xerWcrkQbJJz6C44F8AUweMJnPsYBBC,dtyms5bkJvdTDVH2zsk56UTxKRl\",\n  \"author_name\": \"string\",\n  \"author_url\": \"http://kcVRxlHwsVQphHLQaME.vhiyJhZD0Hi41Z4snp8q8VyaVgWj2Ny,POeXGvP0Yh\",\n  \"title\": \"string\",\n  \"type\": \"string\",\n  \"width\": 7785,\n  \"height\": 2864,\n  \"html\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6f36eab-d1b7-44e1-a29e-4b4371bbeaa0",
+              "name": "The requested object does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oembed",
+                    "1.0",
+                    "embed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "url",
+                      "value": "<uri>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "maxwidth",
+                      "value": "600"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"rest_post_invalid_id\",\n  \"message\": \"Invalid post ID.\",\n  \"data\": {\n    \"status\": 404\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.nacuity.com/wp-json",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a5cc5afa-ab50-42df-9b40-80341f162bdf",
+    "name": "Nacuity Pharmaceuticals Content Oembed API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The read-only content surface Nacuity Pharmaceuticals exposes at https://www.nacuity.com/wp-json. Nacuity Pharmaceuticals is a clinical-stage biopharmaceutical company developing NPI-001 (N-acetylcysteine amide tablets) for retinitis pigmentosa and NPI-002 (an intravitreal implant) for the delay of cataract progression; it runs no developer program and markets no product API. This document is an API Evangelist derivation of the WordPress `wp/v2` route index the site publishes at /wp-json/, restricted to the operations that were verified to return data anonymously on 2026-08-04. Write operations, `/wp/v2/users`, `/wp/v2/settings`, `/wp/v2/menus`, `/wp/v2/themes`, `/wp/v2/plugins`, `/wp/v2/templates`, the `wp-abilities/v1` namespace, the `wordfence/v1` namespace, the `wp-site-health/v1` namespace and the authenticated half of `yoast/v1` and `exactmetrics/v1` all require authentication and are deliberately excluded — see x-api-evangelist-provenance.\n\nContact Support:\n Name: Nacuity Pharmaceuticals",
+      "type": "text/plain"
+    }
+  }
+}

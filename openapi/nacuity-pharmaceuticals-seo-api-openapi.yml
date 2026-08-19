@@ -1,0 +1,92 @@
+openapi: 3.2.0
+info:
+  title: Nacuity Pharmaceuticals Content Seo API
+  version: wp/v2
+  summary: Anonymously readable WordPress REST content API behind www.nacuity.com.
+  description: The read-only content surface Nacuity Pharmaceuticals exposes at https://www.nacuity.com/wp-json. Nacuity Pharmaceuticals is a clinical-stage biopharmaceutical company developing NPI-001 (N-acetylcysteine amide tablets) for retinitis pigmentosa and NPI-002 (an intravitreal implant) for the delay of cataract progression; it runs no developer program and markets no product API. This document is an API Evangelist derivation of the WordPress `wp/v2` route index the site publishes at /wp-json/, restricted to the operations that were verified to return data anonymously on 2026-08-04. Write operations, `/wp/v2/users`, `/wp/v2/settings`, `/wp/v2/menus`, `/wp/v2/themes`, `/wp/v2/plugins`, `/wp/v2/templates`, the `wp-abilities/v1` namespace, the `wordfence/v1` namespace, the `wp-site-health/v1` namespace and the authenticated half of `yoast/v1` and `exactmetrics/v1` all require authentication and are deliberately excluded — see x-api-evangelist-provenance.
+  contact:
+    name: Nacuity Pharmaceuticals
+    url: https://www.nacuity.com/contact/
+  x-api-evangelist-provenance: Derived by the API Evangelist enrichment pipeline from the live WordPress REST route index at https://www.nacuity.com/wp-json/ (211 routes across the namespaces oembed/1.0, sliderrevolution, wordfence/v1, yoast/v1, exactmetrics/v1, wp/v2, wp-site-health/v1, wp-block-editor/v1 and wp-abilities/v1) and verified against live anonymous responses on 2026-08-04. Every parameter below appears verbatim in the route index `args` for that endpoint, and every operation modelled here returned 200 without credentials. Nacuity Pharmaceuticals publishes no OpenAPI, no developer documentation and no API reference for this surface; the humanURL in apis.yml points at the upstream WordPress REST handbook that defines the wp/v2 contract. Nothing here was obtained with credentials.
+servers:
+- url: https://www.nacuity.com/wp-json
+  description: Production content API
+tags:
+- name: seo
+  description: Yoast SEO head-tag rendering for a nacuity.com URL — the only anonymously readable operation in the yoast/v1 namespace.
+paths:
+  /yoast/v1/get_head:
+    get:
+      tags:
+      - seo
+      operationId: getYoastHead
+      summary: Get the rendered Yoast SEO head tags for a URL
+      description: Returns the SEO `<head>` block Yoast renders for a nacuity.com URL — title, canonical, robots directives, Open Graph and Twitter card tags, and the schema.org JSON-LD graph. Verified to return 200 anonymously. Every other operation in the yoast/v1 namespace returns 401 rest_forbidden without credentials.
+      parameters:
+      - name: url
+        in: query
+        required: true
+        description: The nacuity.com URL to render head tags for.
+        schema:
+          type: string
+          format: uri
+      responses:
+        '200':
+          description: Rendered head markup plus the parsed JSON-LD graph.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/YoastHead'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    NotFound:
+      description: The requested object does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            invalid-id:
+              value:
+                code: rest_post_invalid_id
+                message: Invalid post ID.
+                data:
+                  status: 404
+  schemas:
+    YoastHead:
+      type: object
+      properties:
+        html:
+          type: string
+          description: The rendered <head> markup block.
+        json:
+          type: object
+          description: The same head data as a parsed object, including the schema.org @graph.
+    Error:
+      type: object
+      description: The WordPress REST error envelope. Note this is NOT RFC 9457 application/problem+json — it is served as application/json with code/message/data.
+      required:
+      - code
+      - message
+      - data
+      properties:
+        code:
+          type: string
+          description: Machine-readable error slug
+          e.g. rest_post_invalid_id.: null
+        message:
+          type: string
+          description: Human-readable message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+            params:
+              type: object
+              additionalProperties:
+                type: string
+            details:
+              type: object

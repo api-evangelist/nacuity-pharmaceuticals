@@ -1,0 +1,41 @@
+{
+  "provider": "nacuity-pharmaceuticals",
+  "sources": [
+    "nacuity-pharmaceuticals-discovery-api-openapi.yml",
+    "nacuity-pharmaceuticals-media-api-openapi.yml",
+    "nacuity-pharmaceuticals-oembed-api-openapi.yml",
+    "nacuity-pharmaceuticals-pages-api-openapi.yml",
+    "nacuity-pharmaceuticals-portfolio-api-openapi.yml",
+    "nacuity-pharmaceuticals-posts-api-openapi.yml",
+    "nacuity-pharmaceuticals-search-api-openapi.yml",
+    "nacuity-pharmaceuticals-seo-api-openapi.yml",
+    "nacuity-pharmaceuticals-taxonomy-api-openapi.yml"
+  ],
+  "outputs": [
+    "nacuity-pharmaceuticals-discovery-api-openapi.yml",
+    "nacuity-pharmaceuticals-media-api-openapi.yml",
+    "nacuity-pharmaceuticals-oembed-api-openapi.yml",
+    "nacuity-pharmaceuticals-pages-api-openapi.yml",
+    "nacuity-pharmaceuticals-portfolio-api-openapi.yml",
+    "nacuity-pharmaceuticals-posts-api-openapi.yml",
+    "nacuity-pharmaceuticals-search-api-openapi.yml",
+    "nacuity-pharmaceuticals-seo-api-openapi.yml",
+    "nacuity-pharmaceuticals-taxonomy-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "nacuity-pharmaceuticals-discovery-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "nacuity-pharmaceuticals-media-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "nacuity-pharmaceuticals-oembed-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "nacuity-pharmaceuticals-pages-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "nacuity-pharmaceuticals-portfolio-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "nacuity-pharmaceuticals-posts-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "nacuity-pharmaceuticals-search-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "nacuity-pharmaceuticals-seo-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "nacuity-pharmaceuticals-taxonomy-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": []
+}
