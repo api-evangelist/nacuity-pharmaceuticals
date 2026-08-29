@@ -16,6 +16,17 @@ description: >-
   Nacuity Pharmaceuticals runs no developer program and publishes no product API, no developer
   portal and no API documentation; the only machine-readable surface reachable without credentials
   is the WordPress REST content API behind www.nacuity.com, catalogued here.
+deliveryModel:
+  model: unknown
+  open_source: false
+  commercial: false
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 image: https://www.nacuity.com/wp-content/uploads/2017/03/nacuity-pharmaceuticals-inc_web.png
 url: https://raw.githubusercontent.com/api-evangelist/nacuity-pharmaceuticals/refs/heads/main/apis.yml
 x-type: company
