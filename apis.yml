@@ -118,28 +118,6 @@ apis:
     url: data-model/nacuity-pharmaceuticals-data-model.yml
   - type: JSONLD
     url: json-ld/nacuity-pharmaceuticals-json-ld.yml
-- aid: nacuity-pharmaceuticals:nacuity-pharmaceuticals-oembed-api
-  name: Nacuity Pharmaceuticals Oembed API
-  description: oEmbed 1.0 provider endpoint for nacuity.com URLs.
-  humanURL: https://developer.wordpress.org/rest-api/
-  baseURL: https://www.nacuity.com/wp-json
-  tags:
-  - oEmbed
-  tags_raw:
-  - oembed
-  properties:
-  - type: OpenAPI
-    url: openapi/nacuity-pharmaceuticals-oembed-api-openapi.yml
-  - type: Authentication
-    url: authentication/nacuity-pharmaceuticals-authentication.yml
-  - type: ErrorCatalog
-    url: errors/nacuity-pharmaceuticals-problem-types.yml
-  - type: Conventions
-    url: conventions/nacuity-pharmaceuticals-conventions.yml
-  - type: DataModel
-    url: data-model/nacuity-pharmaceuticals-data-model.yml
-  - type: JSONLD
-    url: json-ld/nacuity-pharmaceuticals-json-ld.yml
 - aid: nacuity-pharmaceuticals:nacuity-pharmaceuticals-pages-api
   name: Nacuity Pharmaceuticals Pages API
   description: >-
@@ -272,6 +250,26 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/nacuity-pharmaceuticals-taxonomy-api-openapi.yml
+  - type: Authentication
+    url: authentication/nacuity-pharmaceuticals-authentication.yml
+  - type: ErrorCatalog
+    url: errors/nacuity-pharmaceuticals-problem-types.yml
+  - type: Conventions
+    url: conventions/nacuity-pharmaceuticals-conventions.yml
+  - type: DataModel
+    url: data-model/nacuity-pharmaceuticals-data-model.yml
+  - type: JSONLD
+    url: json-ld/nacuity-pharmaceuticals-json-ld.yml
+- aid: nacuity-pharmaceuticals:nacuity-pharmaceuticals-o-embed-api
+  name: Nacuity Pharmaceuticals o Embed API
+  description: oEmbed 1.0 provider endpoint for nacuity.com URLs.
+  humanURL: https://developer.wordpress.org/rest-api/
+  baseURL: https://www.nacuity.com/wp-json
+  tags:
+  - o Embed
+  properties:
+  - type: OpenAPI
+    url: openapi/nacuity-pharmaceuticals-o-embed-api-openapi.yml
   - type: Authentication
     url: authentication/nacuity-pharmaceuticals-authentication.yml
   - type: ErrorCatalog
