@@ -51,7 +51,7 @@ created: '2026-08-04'
 modified: '2026-08-04'
 tags:
 - Company
-- biopharmaceuticals
+- Biopharmaceutical
 - Pharmaceuticals
 - Ophthalmology
 - Rare Disease
@@ -266,6 +266,8 @@ apis:
   humanURL: https://developer.wordpress.org/rest-api/
   baseURL: https://www.nacuity.com/wp-json
   tags:
+  - oEmbed
+  tags_raw:
   - o Embed
   properties:
   - type: OpenAPI
