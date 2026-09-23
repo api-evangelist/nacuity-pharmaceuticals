@@ -3,7 +3,7 @@ info:
   title: Nacuity Pharmaceuticals Content Media API
   version: wp/v2
   summary: Anonymously readable WordPress REST content API behind www.nacuity.com.
-  description: The read-only content surface Nacuity Pharmaceuticals exposes at https://www.nacuity.com/wp-json. Nacuity Pharmaceuticals is a clinical-stage biopharmaceutical company developing NPI-001 (N-acetylcysteine amide tablets) for retinitis pigmentosa and NPI-002 (an intravitreal implant) for the delay of cataract progression; it runs no developer program and markets no product API. This document is an API Evangelist derivation of the WordPress `wp/v2` route index the site publishes at /wp-json/, restricted to the operations that were verified to return data anonymously on 2026-08-04. Write operations, `/wp/v2/users`, `/wp/v2/settings`, `/wp/v2/menus`, `/wp/v2/themes`, `/wp/v2/plugins`, `/wp/v2/templates`, the `wp-abilities/v1` namespace, the `wordfence/v1` namespace, the `wp-site-health/v1` namespace and the authenticated half of `yoast/v1` and `exactmetrics/v1` all require authentication and are deliberately excluded — see x-api-evangelist-provenance.
+  description: The read-only content surface Nacuity Pharmaceuticals exposes at https://www.nacuity.com/wp-json.
   contact:
     name: Nacuity Pharmaceuticals
     url: https://www.nacuity.com/contact/
@@ -12,13 +12,13 @@ servers:
 - url: https://www.nacuity.com/wp-json
   description: Production content API
 tags:
-- name: media
+- name: Media
   description: Media library (140 attachments at harvest time).
 paths:
   /wp/v2/media:
     get:
       tags:
-      - media
+      - Media
       operationId: listMedia
       summary: List media
       description: Lists media library attachments — logos, leadership headshots, scientific figures and imagery used across the site. 140 attachments at harvest time. This is the only collection on this deployment that returns substantive content over the API.
@@ -101,7 +101,7 @@ paths:
   /wp/v2/media/{id}:
     get:
       tags:
-      - media
+      - Media
       operationId: getMediaItem
       summary: Get a media item
       parameters:
@@ -118,29 +118,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   parameters:
-    SearchSemantics:
-      name: search_semantics
-      in: query
-      description: How to interpret the search input.
-      schema:
-        type: string
-        enum:
-        - exact
-    PathId:
-      name: id
-      in: path
-      required: true
-      description: Unique identifier for the object.
-      schema:
-        type: integer
-    Slug:
-      name: slug
-      in: query
-      description: Limit result set to posts with one or more specific slugs.
-      schema:
-        type: array
-        items:
-          type: string
     PerPage:
       name: per_page
       in: query
@@ -150,6 +127,78 @@ components:
         minimum: 1
         maximum: 100
         default: 10
+    Before:
+      name: before
+      in: query
+      description: Limit response to posts published before a given ISO8601 compliant date.
+      schema:
+        type: string
+        format: date-time
+    SearchSemantics:
+      name: search_semantics
+      in: query
+      description: How to interpret the search input.
+      schema:
+        type: string
+        enum:
+        - exact
+    After:
+      name: after
+      in: query
+      description: Limit response to posts published after a given ISO8601 compliant date.
+      schema:
+        type: string
+        format: date-time
+    PathId:
+      name: id
+      in: path
+      required: true
+      description: Unique identifier for the object.
+      schema:
+        type: integer
+    SearchColumns:
+      name: search_columns
+      in: query
+      description: Array of column names to be searched.
+      schema:
+        type: array
+        items:
+          type: string
+    Search:
+      name: search
+      in: query
+      description: Limit results to those matching a string.
+      schema:
+        type: string
+    ModifiedAfter:
+      name: modified_after
+      in: query
+      description: Limit response to posts modified after a given ISO8601 compliant date.
+      schema:
+        type: string
+        format: date-time
+    Page:
+      name: page
+      in: query
+      description: Current page of the collection.
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    Offset:
+      name: offset
+      in: query
+      description: Offset the result set by a specific number of items.
+      schema:
+        type: integer
+    Exclude:
+      name: exclude
+      in: query
+      description: Ensure result set excludes specific IDs.
+      schema:
+        type: array
+        items:
+          type: integer
     Context:
       name: context
       in: query
@@ -161,62 +210,10 @@ components:
         - embed
         - edit
         default: view
-    Order:
-      name: order
+    Include:
+      name: include
       in: query
-      description: Order sort attribute ascending or descending.
-      schema:
-        type: string
-        enum:
-        - asc
-        - desc
-        default: desc
-    Search:
-      name: search
-      in: query
-      description: Limit results to those matching a string.
-      schema:
-        type: string
-    Before:
-      name: before
-      in: query
-      description: Limit response to posts published before a given ISO8601 compliant date.
-      schema:
-        type: string
-        format: date-time
-    ModifiedAfter:
-      name: modified_after
-      in: query
-      description: Limit response to posts modified after a given ISO8601 compliant date.
-      schema:
-        type: string
-        format: date-time
-    Offset:
-      name: offset
-      in: query
-      description: Offset the result set by a specific number of items.
-      schema:
-        type: integer
-    SearchColumns:
-      name: search_columns
-      in: query
-      description: Array of column names to be searched.
-      schema:
-        type: array
-        items:
-          type: string
-    Page:
-      name: page
-      in: query
-      description: Current page of the collection.
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    Exclude:
-      name: exclude
-      in: query
-      description: Ensure result set excludes specific IDs.
+      description: Limit result set to specific IDs.
       schema:
         type: array
         items:
@@ -228,35 +225,30 @@ components:
       schema:
         type: string
         format: date-time
-    Include:
-      name: include
+    Order:
+      name: order
       in: query
-      description: Limit result set to specific IDs.
+      description: Order sort attribute ascending or descending.
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+        default: desc
+    Slug:
+      name: slug
+      in: query
+      description: Limit result set to posts with one or more specific slugs.
       schema:
         type: array
         items:
-          type: integer
-    After:
-      name: after
-      in: query
-      description: Limit response to posts published after a given ISO8601 compliant date.
-      schema:
-        type: string
-        format: date-time
-  headers:
-    XWPTotal:
-      description: Total number of matching records across all pages.
-      schema:
-        type: integer
-    XWPTotalPages:
-      description: Total number of result pages at the current per_page.
-      schema:
-        type: integer
-    LinkPagination:
-      description: RFC 8288 Link header carrying rel="next" / rel="prev" page links.
-      schema:
-        type: string
+          type: string
   schemas:
+    RenderedText:
+      type: object
+      properties:
+        rendered:
+          type: string
     Error:
       type: object
       description: The WordPress REST error envelope. Note this is NOT RFC 9457 application/problem+json — it is served as application/json with code/message/data.
@@ -327,12 +319,33 @@ components:
           type: object
         _links:
           type: object
-    RenderedText:
-      type: object
-      properties:
-        rendered:
-          type: string
+  headers:
+    XWPTotalPages:
+      description: Total number of result pages at the current per_page.
+      schema:
+        type: integer
+    XWPTotal:
+      description: Total number of matching records across all pages.
+      schema:
+        type: integer
+    LinkPagination:
+      description: RFC 8288 Link header carrying rel="next" / rel="prev" page links.
+      schema:
+        type: string
   responses:
+    NotFound:
+      description: The requested object does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            invalid-id:
+              value:
+                code: rest_post_invalid_id
+                message: Invalid post ID.
+                data:
+                  status: 404
     InvalidParam:
       description: One or more query parameters failed validation.
       content:
@@ -348,16 +361,3 @@ components:
                   status: 400
                   params:
                     per_page: per_page must be between 1 (inclusive) and 100 (inclusive)
-    NotFound:
-      description: The requested object does not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          examples:
-            invalid-id:
-              value:
-                code: rest_post_invalid_id
-                message: Invalid post ID.
-                data:
-                  status: 404

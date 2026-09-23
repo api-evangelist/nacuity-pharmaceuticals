@@ -1,15 +1,7 @@
 {
   "provider": "nacuity-pharmaceuticals",
   "sources": [
-    "nacuity-pharmaceuticals-discovery-api-openapi.yml",
-    "nacuity-pharmaceuticals-media-api-openapi.yml",
-    "nacuity-pharmaceuticals-oembed-api-openapi.yml",
-    "nacuity-pharmaceuticals-pages-api-openapi.yml",
-    "nacuity-pharmaceuticals-portfolio-api-openapi.yml",
-    "nacuity-pharmaceuticals-posts-api-openapi.yml",
-    "nacuity-pharmaceuticals-search-api-openapi.yml",
-    "nacuity-pharmaceuticals-seo-api-openapi.yml",
-    "nacuity-pharmaceuticals-taxonomy-api-openapi.yml"
+    "_original/nacuity-pharmaceuticals-content-openapi.yml"
   ],
   "outputs": [
     "nacuity-pharmaceuticals-discovery-api-openapi.yml",
@@ -22,20 +14,26 @@
     "nacuity-pharmaceuticals-seo-api-openapi.yml",
     "nacuity-pharmaceuticals-taxonomy-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
-    "nacuity-pharmaceuticals-discovery-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "nacuity-pharmaceuticals-media-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "nacuity-pharmaceuticals-oembed-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "nacuity-pharmaceuticals-pages-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "nacuity-pharmaceuticals-portfolio-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "nacuity-pharmaceuticals-posts-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "nacuity-pharmaceuticals-search-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "nacuity-pharmaceuticals-seo-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "nacuity-pharmaceuticals-taxonomy-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "nacuity-pharmaceuticals-content-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "superseded outputs removed: nacuity-pharmaceuticals-o-embed-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 9 total)"
   ],
-  "skipped": []
+  "skipped": [
+    "nacuity-pharmaceuticals-discovery-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nacuity-pharmaceuticals-media-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nacuity-pharmaceuticals-o-embed-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nacuity-pharmaceuticals-pages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nacuity-pharmaceuticals-portfolio-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nacuity-pharmaceuticals-posts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nacuity-pharmaceuticals-search-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nacuity-pharmaceuticals-seo-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "nacuity-pharmaceuticals-taxonomy-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

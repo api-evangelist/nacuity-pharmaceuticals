@@ -3,7 +3,7 @@ info:
   title: Nacuity Pharmaceuticals Content Oembed API
   version: wp/v2
   summary: Anonymously readable WordPress REST content API behind www.nacuity.com.
-  description: The read-only content surface Nacuity Pharmaceuticals exposes at https://www.nacuity.com/wp-json. Nacuity Pharmaceuticals is a clinical-stage biopharmaceutical company developing NPI-001 (N-acetylcysteine amide tablets) for retinitis pigmentosa and NPI-002 (an intravitreal implant) for the delay of cataract progression; it runs no developer program and markets no product API. This document is an API Evangelist derivation of the WordPress `wp/v2` route index the site publishes at /wp-json/, restricted to the operations that were verified to return data anonymously on 2026-08-04. Write operations, `/wp/v2/users`, `/wp/v2/settings`, `/wp/v2/menus`, `/wp/v2/themes`, `/wp/v2/plugins`, `/wp/v2/templates`, the `wp-abilities/v1` namespace, the `wordfence/v1` namespace, the `wp-site-health/v1` namespace and the authenticated half of `yoast/v1` and `exactmetrics/v1` all require authentication and are deliberately excluded — see x-api-evangelist-provenance.
+  description: The read-only content surface Nacuity Pharmaceuticals exposes at https://www.nacuity.com/wp-json.
   contact:
     name: Nacuity Pharmaceuticals
     url: https://www.nacuity.com/contact/
@@ -12,13 +12,13 @@ servers:
 - url: https://www.nacuity.com/wp-json
   description: Production content API
 tags:
-- name: oembed
+- name: o Embed
   description: oEmbed 1.0 provider endpoint for nacuity.com URLs.
 paths:
   /oembed/1.0/embed:
     get:
       tags:
-      - oembed
+      - o Embed
       operationId: getOembed
       summary: Get an oEmbed response for a www.nacuity.com URL
       parameters:

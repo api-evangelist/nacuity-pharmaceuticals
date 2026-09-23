@@ -2,7 +2,7 @@ overlay: 1.0.0
 info:
   title: API Evangelist enhancements for the Nacuity Pharmaceuticals Content API
   version: '1.0.0'
-  description: >-
+  x-description: >-
     An OpenAPI Overlay 1.0.0 document recording the enhancements API Evangelist applied on top of
     the bare WordPress route index published at https://www.nacuity.com/wp-json/. The route index is
     a machine-readable list of paths, methods and argument names — it carries no summaries, no
