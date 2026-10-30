@@ -64,16 +64,112 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Nacuity Pharmaceuticals, Inc. is a clinical-stage biopharmaceutical company headquartered in Fort Worth, Texas,
-with operations in Carlton South, Victoria, Australia. It develops targeted therapeutics against oxidative stress,
-the mechanism it holds responsible for a family of blinding eye diseases. Its lead asset, NPI-001
-(N-acetylcysteine amide) tablets, is in development for retinitis pigmentosa and holds U.S. FDA Breakthrough
-Therapy, Fast Track and Orphan Drug designations; a second programme, NPI-002, is an intravitreal implant for the
-delay of cataract progression.
+Nacuity Pharmaceuticals, Inc. is a clinical-stage biopharmaceutical company headquartered in Fort Worth, Texas, with operations in Carlton South, Victoria, Australia. It develops targeted therapeutics against oxidative stress, the mechanism it holds responsible for a family of blinding eye diseases and chronic conditions. Its lead asset, NPI-001 (N-acetylcysteine amide) tablets, is in development for retinitis pigmentosa and holds U.S. FDA Breakthrough Therapy, Fast Track and Orphan Drug designations; the SLO-RP Phase 1/2 trial reported significantly lower photoreceptor loss than placebo from six months through the 24-month study in retinitis pigmentosa associated with Usher syndrome. A second programme, NPI-002, is an intravitreal implant for the delay of cataract progression and has completed implantation in the final cohort of its Phase 1/2 trial. A third programme addresses cystinosis. The company licensed its founding technology from Johns Hopkins University, is backed by Foundation Fighting Blindness and its venture arm the RD Fund, and partners with Arctic Therapeutics on AT-001 for hereditary cystatin C amyloid angiopathy. Nacuity Pharmaceuticals runs no developer program and publishes no product API, no developer portal and no API documentation; the only machine-readable surface reachable without credentials is the WordPress REST content API behind www.nacuity.com, catalogued here.
 
-Nacuity Pharmaceuticals runs no developer program and publishes no product API, no developer portal and no API
-documentation. The only machine-readable surface reachable without credentials is the WordPress REST content API
-behind www.nacuity.com, catalogued in this repository.
+**Areas:** Company · Biopharmaceutical · Pharmaceuticals · Ophthalmology · Rare Disease · Clinical Trials · retinitis-pigmentosa · oxidative-stress · Life Sciences · Drug Development · content-api
 
-- https://www.nacuity.com/
-- https://forgeglobal.com/nacuity-pharmaceuticals_stock/
+## Nacuity Pharmaceuticals on APIs.io
+
+Everything profiled for Nacuity Pharmaceuticals is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/nacuity-pharmaceuticals/](https://apis.io/providers/nacuity-pharmaceuticals/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [Nacuity Pharmaceuticals Website (WordPress REST)](https://apis.io/apis/nacuity-pharmaceuticals/nacuity-com-website-wordpress-rest/) — The public WordPress REST API (wp-json) of the Nacuity Pharmaceuticals website at www.nacuity.com: the route index of the site's content management system,…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Nacuity Pharmaceuticals Organization Context](https://apis.io/jsonld/nacuity-pharmaceuticals/nacuity-pharmaceuticals-organization/)
+
+#### Collections (9)
+
+Postman and Open Collection request collections.
+
+- [Moved to /providers/nacuity-pharmaceuticals/](https://apis.io/collections/nacuity-pharmaceuticals/open-nacuity-pharmaceuticals-discovery-api/)
+- [Moved to /providers/nacuity-pharmaceuticals/](https://apis.io/collections/nacuity-pharmaceuticals/open-nacuity-pharmaceuticals-media-api/)
+- [Moved to /providers/nacuity-pharmaceuticals/](https://apis.io/collections/nacuity-pharmaceuticals/open-nacuity-pharmaceuticals-oembed-api/)
+- [Moved to /providers/nacuity-pharmaceuticals/](https://apis.io/collections/nacuity-pharmaceuticals/open-nacuity-pharmaceuticals-pages-api/)
+- [Moved to /providers/nacuity-pharmaceuticals/](https://apis.io/collections/nacuity-pharmaceuticals/open-nacuity-pharmaceuticals-portfolio-api/)
+- [Moved to /providers/nacuity-pharmaceuticals/](https://apis.io/collections/nacuity-pharmaceuticals/open-nacuity-pharmaceuticals-posts-api/)
+- [Moved to /providers/nacuity-pharmaceuticals/](https://apis.io/collections/nacuity-pharmaceuticals/open-nacuity-pharmaceuticals-search-api/)
+- [Moved to /providers/nacuity-pharmaceuticals/](https://apis.io/collections/nacuity-pharmaceuticals/open-nacuity-pharmaceuticals-seo-api/)
+- [Moved to /providers/nacuity-pharmaceuticals/](https://apis.io/collections/nacuity-pharmaceuticals/open-nacuity-pharmaceuticals-taxonomy-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Nacuity Pharmaceuticals Content Overlay](https://apis.io/overlays/nacuity-pharmaceuticals/nacuity-pharmaceuticals-content-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Nacuity Pharmaceuticals Authentication](https://apis.io/security/nacuity-pharmaceuticals/nacuity-pharmaceuticals-authentication/)
+- [Nacuity Pharmaceuticals Domain Security](https://apis.io/security/nacuity-pharmaceuticals/nacuity-pharmaceuticals-domain-security/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.nacuity.com/)
+- [Support](https://www.nacuity.com/contact/)
+- [Privacy policy](https://www.nacuity.com/privacy-policy/)
+
+## API Evangelist rating
+
+**Kin Score 16.4** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 58.0 |
+| Contract quality | 6.7 |
+| Contract governance | 4.5 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 28.0 |
+| Access clarity | 10.5 |
+
+**Agent readiness 4.1** — human-only
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 16.4** — Health
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/nacuity-pharmaceuticals/](https://apis.io/providers/nacuity-pharmaceuticals/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Nacuity Pharmaceuticals: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/nacuity-pharmaceuticals/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
